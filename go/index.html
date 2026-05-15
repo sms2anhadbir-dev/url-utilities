@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Redirecting...</title>
+</head>
+<body>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+
+const id = params.get("id");
+
+const links = JSON.parse(localStorage.getItem("ezlinks")) || {};
+
+if (links[id]) {
+  window.location.href = links[id];
+} else {
+  document.body.innerHTML = "<h1>Link not found</h1>";
+}
+</script>
+
+</body>
+</html>
