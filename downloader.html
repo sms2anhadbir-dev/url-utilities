@@ -82,10 +82,6 @@
     YouTube Downloader
   </h1>
 
-  <p class="text-muted mb-4">
-    Download YouTube videos using yt-dlp backend.
-  </p>
-
   <div class="card p-4">
 
     <label class="form-label">
@@ -96,22 +92,18 @@
       type="text"
       id="youtubeUrl"
       class="form-control mb-3"
-      placeholder="Paste YouTube link here">
+      placeholder="Paste YouTube URL here">
 
     <button
       class="btn btn-primary"
       onclick="downloadVideo()">
 
-      Download
+      Download Video
 
     </button>
 
-    <div class="mt-3">
-
-      <small class="text-muted">
-        Powered by yt-dlp + Railway backend
-      </small>
-
+    <div id="status"
+         class="mt-3 text-muted">
     </div>
 
   </div>
@@ -125,6 +117,9 @@ async function downloadVideo() {
   const url =
     document.getElementById("youtubeUrl").value.trim();
 
+  const status =
+    document.getElementById("status");
+
   if (!url) {
 
     alert("Please paste a YouTube URL");
@@ -132,14 +127,36 @@ async function downloadVideo() {
     return;
   }
 
-  // REPLACE THIS WITH YOUR RAILWAY DOMAIN
+  status.innerHTML =
+    "Starting download...";
+
+  // IMPORTANT:
+  // REPLACE THIS WITH YOUR REAL RAILWAY DOMAIN
 
   const backend =
     "https://YOUR-RAILWAY-DOMAIN.up.railway.app";
 
-  window.open(
-    `${backend}/download?url=${encodeURIComponent(url)}`
-  );
+  try {
+
+    window.open(
+      `${backend}/download?url=${encodeURIComponent(url)}`,
+      "_blank"
+    );
+
+    status.innerHTML =
+      "Download request sent.";
+
+  }
+
+  catch (error) {
+
+    console.error(error);
+
+    status.innerHTML =
+      "Download failed.";
+
+  }
+
 }
 
 </script>
@@ -147,7 +164,7 @@ async function downloadVideo() {
 <script src="js/security.js"></script>
 
 <script
-  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js">
+src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js">
 </script>
 
 </body>
