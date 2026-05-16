@@ -25,53 +25,6 @@
        EZLink
     </a>
 
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#nav">
-
-      <span class="navbar-toggler-icon"></span>
-
-    </button>
-
-    <div class="collapse navbar-collapse"
-         id="nav">
-
-      <ul class="navbar-nav ms-auto">
-
-        <li class="nav-item">
-          <a class="nav-link"
-             href="index.html">
-             Home
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link"
-             href="shortener.html">
-             Shortener
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link active"
-             href="downloader.html">
-             Downloader
-          </a>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link"
-             href="qr.html">
-             QR Generator
-          </a>
-        </li>
-
-      </ul>
-
-    </div>
-
   </div>
 
 </nav>
@@ -98,7 +51,7 @@
       class="btn btn-primary"
       onclick="downloadVideo()">
 
-      Download Video
+      Download
 
     </button>
 
@@ -112,7 +65,7 @@
 
 <script>
 
-async function downloadVideo() {
+function downloadVideo() {
 
   const url =
     document.getElementById("youtubeUrl").value.trim();
@@ -130,38 +83,17 @@ async function downloadVideo() {
   status.innerHTML =
     "Starting download...";
 
-  // IMPORTANT:
-  // REPLACE THIS WITH YOUR REAL RAILWAY DOMAIN
-
   const backend =
-    "https://YOUR-RAILWAY-DOMAIN.up.railway.app";
+    "https://url-utilities-production.up.railway.app";
 
-  try {
-
-    window.open(
-      `${backend}/download?url=${encodeURIComponent(url)}`,
-      "_blank"
-    );
-
-    status.innerHTML =
-      "Download request sent.";
-
-  }
-
-  catch (error) {
-
-    console.error(error);
-
-    status.innerHTML =
-      "Download failed.";
-
-  }
+  window.open(
+    `${backend}/download?url=${encodeURIComponent(url)}`,
+    "_blank"
+  );
 
 }
 
 </script>
-
-<script src="js/security.js"></script>
 
 <script
 src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js">
