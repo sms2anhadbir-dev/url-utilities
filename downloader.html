@@ -47,6 +47,28 @@
       class="form-control mb-3"
       placeholder="Paste YouTube URL here">
 
+    <label class="form-label">
+      Download Type
+    </label>
+
+    <select
+      id="downloadMode"
+      class="form-select mb-3">
+
+      <option value="video">
+        Full Video + Audio (MP4)
+      </option>
+
+      <option value="videoonly">
+        Video Only (MP4)
+      </option>
+
+      <option value="audio">
+        Audio Only (MP3)
+      </option>
+
+    </select>
+
     <button
       class="btn btn-primary"
       onclick="downloadVideo()">
@@ -70,6 +92,9 @@ function downloadVideo() {
   const url =
     document.getElementById("youtubeUrl").value.trim();
 
+  const mode =
+    document.getElementById("downloadMode").value;
+
   const status =
     document.getElementById("status");
 
@@ -87,7 +112,7 @@ function downloadVideo() {
     "https://url-utilities-production.up.railway.app";
 
   window.open(
-    `${backend}/download?url=${encodeURIComponent(url)}`,
+    `${backend}/download?url=${encodeURIComponent(url)}&mode=${mode}`,
     "_blank"
   );
 
