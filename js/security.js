@@ -1,43 +1,103 @@
-// Websites cannot fully hide source code.
-// This only discourages casual inspection.
+(function () {
 
-// Disable right click
-window.addEventListener("contextmenu", function (e) {
-  e.preventDefault();
-});
+  // DISABLE RIGHT CLICK
 
-// Block common shortcuts
-window.addEventListener("keydown", function (e) {
-
-  if (e.key === "F12") {
+  document.addEventListener("contextmenu", function (e) {
     e.preventDefault();
+  });
+
+  // BLOCK COMMON DEVTOOLS SHORTCUTS
+
+  document.addEventListener("keydown", function (e) {
+
+    // F12
+    if (e.key === "F12") {
+      e.preventDefault();
+      e.stopPropagation();
+      return false;
+    }
+
+    // CTRL + SHIFT + I
+    if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "i") {
+      e.preventDefault();
+      e.stopPropagation();
+      return false;
+    }
+
+    // CTRL + SHIFT + J
+    if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "j") {
+      e.preventDefault();
+      e.stopPropagation();
+      return false;
+    }
+
+    // CTRL + SHIFT + C
+    if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "c") {
+      e.preventDefault();
+      e.stopPropagation();
+      return false;
+    }
+
+    // CTRL + U
+    if (e.ctrlKey && e.key.toLowerCase() === "u") {
+      e.preventDefault();
+      e.stopPropagation();
+      return false;
+    }
+
+    // CTRL + S
+    if (e.ctrlKey && e.key.toLowerCase() === "s") {
+      e.preventDefault();
+      e.stopPropagation();
+      return false;
+    }
+
+  }, true);
+
+  // DEVTOOLS SIZE DETECTION
+
+  function detectDevTools() {
+
+    const widthThreshold =
+      window.outerWidth - window.innerWidth > 160;
+
+    const heightThreshold =
+      window.outerHeight - window.innerHeight > 160;
+
+    if (widthThreshold || heightThreshold) {
+
+      document.body.innerHTML = `
+        <div style="
+          font-family: Arial;
+          height: 100vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: black;
+          color: white;
+          flex-direction: column;
+        ">
+          <h1>Access Denied</h1>
+          <p>Developer tools detected.</p>
+        </div>
+      `;
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 1500);
+
+    }
+
   }
 
-  if (e.ctrlKey && e.shiftKey && e.key === "I") {
-    e.preventDefault();
-  }
+  setInterval(detectDevTools, 1000);
 
-  if (e.ctrlKey && e.shiftKey && e.key === "J") {
-    e.preventDefault();
-  }
+  // CLEAR CONSOLE LOOP
 
-  if (e.ctrlKey && e.key === "u") {
-    e.preventDefault();
-  }
-});
+  setInterval(() => {
 
-// Basic devtools detection
-setInterval(function () {
+    console.clear();
 
-  const widthThreshold = window.outerWidth - window.innerWidth > 160;
-  const heightThreshold = window.outerHeight - window.innerHeight > 160;
+  }, 1000);
 
-  if (widthThreshold || heightThreshold) {
-    document.body.innerHTML = `
-      <div class="container text-center mt-5">
-        <h1>Developer Tools Detected</h1>
-      </div>
-    `;
-  }
-
-}, 1000);
+})();
