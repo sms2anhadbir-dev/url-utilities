@@ -1,16 +1,17 @@
 from flask import Flask, request, send_file, jsonify
 import yt_dlp
 import os
+import glob
 
 app = Flask(__name__)
 
 @app.route("/")
 def home():
 
-    return {
+    return jsonify({
         "status": "online",
-        "message": "EZLink backend running"
-    }
+        "message": "EZLink yt-dlp backend running"
+    })
 
 @app.route("/download")
 def download():
@@ -19,12 +20,30 @@ def download():
     mode = request.args.get("mode", "video")
 
     if not url:
+
         return jsonify({
             "error": "No URL provided"
         }), 400
 
+    # DELETE OLD FILES
+
+    for file in glob.glob("video*"):
+        try:
+            os.remove(file)
+        except:
+            pass
+
+    for file in glob.glob("audio*"):
+        try:
+            os.remove(file)
+        except:
+            pass
+
+    # AUDIO ONLY
+
     if mode == "audio":
-        output = "audio.mp3"
+
+        output = "audio.%(ext)s"
 
         ydl_opts = {
             "format": "bestaudio/best",
@@ -33,28 +52,34 @@ def download():
             "quiet": True,
             "no_warnings": True,
             "cookiefile": "cookies.txt",
+
             "extractor_args": {
                 "youtube": {
                     "player_client": ["android"]
                 }
             },
+
             "postprocessors": [{
                 "key": "FFmpegExtractAudio",
                 "preferredcodec": "mp3",
-                "preferredquality": "192"
+                "preferredquality": "320"
             }]
         }
 
+    # VIDEO ONLY
+
     elif mode == "videoonly":
-        output = "video_only.mp4"
+
+        output = "video_only.%(ext)s"
 
         ydl_opts = {
-            "format": "bestvideo[ext=mp4]",
+            "format": "bestvideo/best",
             "outtmpl": output,
             "noplaylist": True,
             "quiet": True,
             "no_warnings": True,
             "cookiefile": "cookies.txt",
+
             "extractor_args": {
                 "youtube": {
                     "player_client": ["android"]
@@ -62,17 +87,21 @@ def download():
             }
         }
 
+    # FULL VIDEO + AUDIO
+
     else:
-        output = "video.mp4"
+
+        output = "video.%(ext)s"
 
         ydl_opts = {
-            "format": "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best",
+            "format": "bestvideo+bestaudio/best",
             "outtmpl": output,
             "merge_output_format": "mp4",
             "noplaylist": True,
             "quiet": True,
             "no_warnings": True,
             "cookiefile": "cookies.txt",
+
             "extractor_args": {
                 "youtube": {
                     "player_client": ["android"]
@@ -82,14 +111,23 @@ def download():
 
     try:
 
-        if os.path.exists(output):
-            os.remove(output)
-
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            ydl.download([url])
+
+            info = ydl.extract_info(
+                url,
+                download=True
+            )
+
+            filename = ydl.prepare_filename(info)
+
+            # MP3 FIX
+
+            if mode == "audio":
+
+                filename = os.path.splitext(filename)[0] + ".mp3"
 
         return send_file(
-            output,
+            filename,
             as_attachment=True
         )
 
