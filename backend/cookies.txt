@@ -1,0 +1,12 @@
+# Netscape HTTP Cookie File
+# http://curl.haxx.se/rfc/cookie_spec.html
+# This is a generated file!  Do not edit.
+
+.youtube.com	TRUE	/	TRUE	1794295632	VISITOR_INFO1_LIVE	qERBnF4Idl0
+.youtube.com	TRUE	/	TRUE	1794295632	VISITOR_PRIVACY_METADATA	CgJBVRIEGgAgPw%3D%3D
+.youtube.com	TRUE	/	TRUE	1813558849	PREF	tz=Australia.Brisbane&f5=30000&f7=100
+.youtube.com	TRUE	/	TRUE	1791183122	__Secure-BUCKET	CKwG
+.youtube.com	TRUE	/	TRUE	1794295510	__Secure-YNID	18.YT=tjwoL97vwZ_P9cm8UTv5RYomYStPSC8SaNlN8xDI4lF8eRxuxnvpsjCOem2mRZhtnHbjOtqg76cXUjhfBwnbA6raC-OUHx91_J6I_-B7jJY5Zji7_u-jcv7lCtNDDGyL4Q-igaxtFwSIY2G4qYSCf1rQWF5TXkBt1qbM_dkjlns5SHK8StpksY59G4NEt7IiDRSXEZO8jyXDusqllXtavEbhrExIkksKgm8juB2qY6QqNIO8w3bwKn1O6q5J478-iY1yM9ofbI9xK_fTqFMVqlT1WoT6mOnf4l7f8iY86nK7Ldz_dit6UlqI03H925hg7U5R7pmtQOD-Qs45UdVNGg
+.youtube.com	TRUE	/	TRUE	1779000644	GPS	1
+.youtube.com	TRUE	/	TRUE	1810534846	__Secure-1PSIDTS	sidts-CjUBhkeRdz-muzENjCz3K3VOZAhomdbP6eCwO1TURzovRl1Kil8X065GnjRQLbCL12JsHKDcnRAA
+.youtube.com	TRUE	/	TRUE	1810534846	__Secure-3PSIDTS	sidts-CjUBhkeRdz-muzENjCz3K3VOZAhomdbP6eCwO1TURzovRl1Kil8X065GnjRQLbCL12JsHKDcnRAA
