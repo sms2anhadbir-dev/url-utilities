@@ -1,60 +1,88 @@
+// =========================
+// EZLink Security
+// =========================
+
 (function () {
 
-  // DISABLE RIGHT CLICK
+  "use strict";
 
-  document.addEventListener("contextmenu", function (e) {
+  // BLOCK RIGHT CLICK
+
+  window.addEventListener("contextmenu", function (e) {
+
     e.preventDefault();
-  });
 
-  // BLOCK COMMON DEVTOOLS SHORTCUTS
+  }, true);
 
-  document.addEventListener("keydown", function (e) {
+  // BLOCK KEY COMBINATIONS
+
+  window.addEventListener("keydown", function (e) {
+
+    const key = e.key.toLowerCase();
 
     // F12
-    if (e.key === "F12") {
+    if (e.keyCode === 123) {
+
       e.preventDefault();
       e.stopPropagation();
+
       return false;
+
     }
 
     // CTRL + SHIFT + I
-    if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "i") {
+    if (e.ctrlKey && e.shiftKey && key === "i") {
+
       e.preventDefault();
       e.stopPropagation();
+
       return false;
+
     }
 
     // CTRL + SHIFT + J
-    if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "j") {
+    if (e.ctrlKey && e.shiftKey && key === "j") {
+
       e.preventDefault();
       e.stopPropagation();
+
       return false;
+
     }
 
     // CTRL + SHIFT + C
-    if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "c") {
+    if (e.ctrlKey && e.shiftKey && key === "c") {
+
       e.preventDefault();
       e.stopPropagation();
+
       return false;
+
     }
 
     // CTRL + U
-    if (e.ctrlKey && e.key.toLowerCase() === "u") {
+    if (e.ctrlKey && key === "u") {
+
       e.preventDefault();
       e.stopPropagation();
+
       return false;
+
     }
 
     // CTRL + S
-    if (e.ctrlKey && e.key.toLowerCase() === "s") {
+    if (e.ctrlKey && key === "s") {
+
       e.preventDefault();
       e.stopPropagation();
+
       return false;
+
     }
 
   }, true);
 
-  // DEVTOOLS SIZE DETECTION
+  // DEVTOOLS DETECTION
 
   function detectDevTools() {
 
@@ -67,34 +95,36 @@
     if (widthThreshold || heightThreshold) {
 
       document.body.innerHTML = `
-        <div style="
-          font-family: Arial;
-          height: 100vh;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background: black;
-          color: white;
-          flex-direction: column;
-        ">
-          <h1>Access Denied</h1>
-          <p>Developer tools detected.</p>
-        </div>
-      `;
 
-      setTimeout(() => {
-        window.location.reload();
-      }, 1500);
+        <div style="
+          background:black;
+          color:white;
+          width:100%;
+          height:100vh;
+          display:flex;
+          justify-content:center;
+          align-items:center;
+          flex-direction:column;
+          font-family:Arial;
+        ">
+
+          <h1>Access Denied</h1>
+
+          <p>Developer tools detected.</p>
+
+        </div>
+
+      `;
 
     }
 
   }
 
-  setInterval(detectDevTools, 1000);
+  setInterval(detectDevTools, 500);
 
-  // CLEAR CONSOLE LOOP
+  // CLEAR CONSOLE
 
-  setInterval(() => {
+  setInterval(function () {
 
     console.clear();
 
